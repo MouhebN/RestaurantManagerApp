@@ -2,35 +2,75 @@ package tn.esprit.restaurantmanagerapp;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import tn.esprit.restaurantmanagerapp.adapter.MenuItemAdapter;
 import tn.esprit.restaurantmanagerapp.entity.MenuItem;
 import tn.esprit.restaurantmanagerapp.repository.MenuItemRepository;
 
-public class AddMenuItemActivity extends AppCompatActivity {
 
+public class AddMenuItemActivity extends AppCompatActivity {
+    private Spinner spinnerCategory;
     private EditText editTextName, editTextDescription, editTextPrice, editTextCategory;
     private Button buttonAddMenuItem;
     private MenuItemRepository menuItemRepository;
+    private RecyclerView recyclerViewMenuItems;
+    private MenuItemAdapter menuItemAdapter;
+    private List<MenuItem> menuItems;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_menu_item);
+        menuItems = new ArrayList<>();
 
         // Initialize Views
         editTextName = findViewById(R.id.editTextName);
         editTextDescription = findViewById(R.id.editTextDescription);
         editTextPrice = findViewById(R.id.editTextPrice);
-        editTextCategory = findViewById(R.id.editTextCategory);
+        spinnerCategory = findViewById(R.id.spinnerCategory);
         buttonAddMenuItem = findViewById(R.id.buttonAddMenuItem);
+        recyclerViewMenuItems = findViewById(R.id.recyclerViewMenuItems);
 
-
+        // Initialize the repository
         menuItemRepository = new MenuItemRepository(getApplicationContext());
+
+        // Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.category_options, android.R.layout.simple_spinner_item);
+
+        // Specify the layout to use when the list of choices appears
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        // Apply the adapter to the spinner
+        spinnerCategory.setAdapter(adapter);
+
+        menuItemRepository.getAllMenuItems(new MenuItemRepository.MenuItemsCallback() {
+            @Override
+            public void onMenuItemsLoaded(List<MenuItem> loadedMenuItems) {
+                if (loadedMenuItems == null) {
+                    menuItems = new ArrayList<>();
+                } else {
+                    menuItems = loadedMenuItems;
+                }
+
+                // Set up RecyclerView
+                recyclerViewMenuItems.setLayoutManager(new LinearLayoutManager(AddMenuItemActivity.this));
+                menuItemAdapter = new MenuItemAdapter(menuItems, menuItemRepository, AddMenuItemActivity.this);
+                recyclerViewMenuItems.setAdapter(menuItemAdapter);
+            }
+        });
 
         // Set OnClickListener for the button
         buttonAddMenuItem.setOnClickListener(new View.OnClickListener() {
@@ -46,9 +86,8 @@ public class AddMenuItemActivity extends AppCompatActivity {
         String name = editTextName.getText().toString();
         String description = editTextDescription.getText().toString();
         String priceText = editTextPrice.getText().toString();
-        String category = editTextCategory.getText().toString();
+        String category = spinnerCategory.getSelectedItem().toString();
 
-        // Validate inputs
         if (name.isEmpty() || description.isEmpty() || priceText.isEmpty() || category.isEmpty()) {
             Toast.makeText(this, "Please fill out all fields", Toast.LENGTH_SHORT).show();
             return;
@@ -69,13 +108,17 @@ public class AddMenuItemActivity extends AppCompatActivity {
         // Insert item in the background
         menuItemRepository.insertMenuItem(menuItem);
 
-        // Notify user
+        // Update the RecyclerView
+        menuItems.add(menuItem);
+        menuItemAdapter.notifyItemInserted(menuItems.size() - 1);
+
         Toast.makeText(this, "Menu item added successfully", Toast.LENGTH_SHORT).show();
 
         // Clear input fields
         editTextName.setText("");
         editTextDescription.setText("");
         editTextPrice.setText("");
-        editTextCategory.setText("");
+        spinnerCategory.setSelection(0);
     }
+
 }

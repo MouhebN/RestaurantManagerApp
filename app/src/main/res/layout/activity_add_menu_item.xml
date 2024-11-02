@@ -24,35 +24,53 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Menu Item Name"
-            android:inputType="text" />
+            android:inputType="text"
+            android:padding="12dp"
+            android:background="@drawable/edittext_background"
+            android:layout_marginTop="8dp" />
 
         <EditText
             android:id="@+id/editTextDescription"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Description"
-            android:inputType="text" />
+            android:inputType="text"
+            android:padding="12dp"
+            android:background="@drawable/edittext_background"
+            android:layout_marginTop="8dp" />
 
         <EditText
             android:id="@+id/editTextPrice"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Price"
-            android:inputType="numberDecimal" />
+            android:inputType="numberDecimal"
+            android:padding="12dp"
+            android:background="@drawable/edittext_background"
+            android:layout_marginTop="8dp" />
 
-        <EditText
-            android:id="@+id/editTextCategory"
+        <Spinner
+            android:id="@+id/spinnerCategory"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Category"
-            android:inputType="text" />
+            android:layout_marginTop="8dp"
+            android:padding="12dp"
+            android:background="@drawable/spinner_background" /> <!-- Custom background -->
+
 
         <Button
             android:id="@+id/buttonAddMenuItem"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Add Menu Item"
+            android:text="@string/add_menu_item"
             android:layout_gravity="center" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewMenuItems"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:listitem="@layout/menu_item_layout" />
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

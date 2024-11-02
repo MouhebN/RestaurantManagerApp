@@ -1,7 +1,6 @@
 package tn.esprit.restaurantmanagerapp.database;
 
 import android.content.Context;
-import android.view.Menu;
 
 import androidx.room.Database;
 import androidx.room.Room;

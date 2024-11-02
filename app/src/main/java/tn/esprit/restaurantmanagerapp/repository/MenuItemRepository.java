@@ -32,12 +32,21 @@ public class MenuItemRepository {
         executorService.execute(() -> menuDao.deleteMenuItem(menuItem));
     }
 
-    public List<MenuItem> getAllMenuItems() {
-        return menuDao.getAllMenuItems();
+    public void getAllMenuItems(MenuItemsCallback callback) {
+        executorService.execute(() -> {
+            List<MenuItem> menuItems = menuDao.getAllMenuItems();
+            new android.os.Handler(android.os.Looper.getMainLooper()).post(() -> {
+                callback.onMenuItemsLoaded(menuItems);
+            });
+        });
     }
 
     public MenuItem getMenuItemById(int id) {
         return menuDao.getMenuItemById(id);
+    }
+
+    public interface MenuItemsCallback {
+        void onMenuItemsLoaded(List<MenuItem> menuItems);
     }
 }
 
