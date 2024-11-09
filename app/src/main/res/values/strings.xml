@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">RestaurantManagerApp</string>
+    <string name="name">Name</string>
+    <string name="description">Description</string>
+    <string name="price">Price</string>
+    <string name="delete">Delete</string>
+    <string name="update">Update</string>
+    <string name="add_menu_item">Add Menu Item</string>
+    <string-array name="category_options">
+        <item>Boisson</item>
+        <item>Plat</item>
+    </string-array>
+</resources>
