@@ -38,5 +38,8 @@ public abstract class AppDatabase extends RoomDatabase {
         }
         return instance;
     }
+    public static void destroyInstance() {
+        instance = null; // Clear the instance for testing or when not needed
+    }
 
 }

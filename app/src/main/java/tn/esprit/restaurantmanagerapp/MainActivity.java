@@ -2,9 +2,7 @@ package tn.esprit.restaurantmanagerapp;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
-
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
@@ -26,18 +24,22 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
-        // Find the button by ID
+        // Find the buttons by ID
         Button buttonGoToAddMenu = findViewById(R.id.buttonGoToAddMenu);
+        Button buttonGoToDelivery = findViewById(R.id.buttonGoToDelivery);
 
-        // Set an onClickListener
-        buttonGoToAddMenu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Start AddMenuItemActivity
-                Intent intent = new Intent(MainActivity.this, AddMenuItemActivity.class);
-                startActivity(intent);
-            }
+        // Set onClickListener for Go to Add Menu
+        buttonGoToAddMenu.setOnClickListener(v -> {
+            // Start AddMenuItemActivity
+            Intent intent = new Intent(MainActivity.this, AddMenuItemActivity.class);
+            startActivity(intent);
         });
 
+        // Set onClickListener for Go to Delivery
+        buttonGoToDelivery.setOnClickListener(v -> {
+            // Start DeliveryActivity
+            Intent intent = new Intent(MainActivity.this, DeliveryActivity.class);
+            startActivity(intent);
+        });
     }
 }
