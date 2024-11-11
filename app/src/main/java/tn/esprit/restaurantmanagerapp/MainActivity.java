@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -16,7 +15,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
 
         // Setup for window insets
@@ -26,10 +24,11 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
-        // Find the button by ID
+        // Find the buttons by ID
         Button buttonGoToAddMenu = findViewById(R.id.buttonGoToAddMenu);
+        Button buttonGoToAddReservation = findViewById(R.id.buttonGoToAddReservation);
 
-        // Set an onClickListener
+        // Set onClickListener for "Go to Add Menu Item"
         buttonGoToAddMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -39,5 +38,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        // Set onClickListener for "Go to Add Reservation"
+        buttonGoToAddReservation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Start AddReservationActivity
+                Intent intent = new Intent(MainActivity.this, AddReservationActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 }

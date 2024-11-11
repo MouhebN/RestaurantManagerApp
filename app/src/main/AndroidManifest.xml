@@ -12,18 +12,26 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.RestaurantManagerApp"
         tools:targetApi="31">
+
+        <!-- Declare AddMenuItemActivity -->
         <activity
             android:name=".AddMenuItemActivity"
             android:exported="false" />
+
+        <!-- Declare MainActivity as the Launcher Activity -->
         <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- Declare AddReservationActivity -->
+        <activity
+            android:name=".AddReservationActivity"
+            android:exported="false" />
     </application>
 
 </manifest>

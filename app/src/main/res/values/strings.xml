@@ -6,6 +6,8 @@
     <string name="delete">Delete</string>
     <string name="update">Update</string>
     <string name="add_menu_item">Add Menu Item</string>
+    <string name="delete_reservation">Delete Reservation</string>
+    <string name="update_reservation">Update Reservation</string>
     <string-array name="category_options">
         <item>Boisson</item>
         <item>Plat</item>
