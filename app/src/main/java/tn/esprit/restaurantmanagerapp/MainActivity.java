@@ -18,33 +18,27 @@ public class MainActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
 
-        // Setup for window insets
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
 
-        // Find the button by ID
         Button buttonGoToOrder = findViewById(R.id.buttonGoToOrder);
 
-        // Set an onClickListener
         buttonGoToOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Start OrderActivity
                 Intent intent = new Intent(MainActivity.this, OrderActivity.class);
                 startActivity(intent);
             }
         });
-        // Find the button by ID
+
         Button buttonGoToAddMenu = findViewById(R.id.buttonGoToAddMenu);
 
-        // Set an onClickListener
         buttonGoToAddMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Start AddMenuItemActivity
                 Intent intent = new Intent(MainActivity.this, AddMenuItemActivity.class);
                 startActivity(intent);
             }
@@ -53,10 +47,16 @@ public class MainActivity extends AppCompatActivity {
         buttonGoToAddReservation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Start AddReservationActivity
                 Intent intent = new Intent(MainActivity.this, AddReservationActivity.class);
                 startActivity(intent);
             }
+        });
+
+        Button buttonGoToDelivery = findViewById(R.id.buttonGoToDelivery);
+        buttonGoToDelivery.setOnClickListener(v -> {
+            // Start DeliveryActivity
+            Intent intent = new Intent(MainActivity.this, DeliveryActivity.class);
+            startActivity(intent);
         });
     }
 }

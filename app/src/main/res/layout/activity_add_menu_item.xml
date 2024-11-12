@@ -55,7 +55,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:padding="12dp"
-            android:background="@drawable/spinner_background" /> <!-- Custom background -->
+            android:background="@drawable/spinner_background" />
 
 
         <Button

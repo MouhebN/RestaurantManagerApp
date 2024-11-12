@@ -32,12 +32,23 @@
 
     <Button
         android:id="@+id/buttonGoToAddReservation"
-        android:layout_width="195dp"
-        android:layout_height="36dp"
+        android:layout_width="223dp"
+        android:layout_height="47dp"
         android:layout_marginTop="196dp"
         android:text="Go to Add Reservation"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/buttonGoToDelivery"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:text="Go to Delivery"
+        app:layout_constraintHorizontal_bias="0.458"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/buttonGoToAddMenu" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

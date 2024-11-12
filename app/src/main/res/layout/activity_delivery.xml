@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".DeliveryActivity">
+
+    <!-- Logo Image -->
+    <ImageView
+        android:id="@+id/deliveryImg"
+        android:layout_width="200dp"
+        android:layout_height="145dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/baseline_delivery_dining_24" />
+
+    <!-- Premier TextInput : Order ID -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/orderIdTextInputLayout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/deliveryImg">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editTextOrderId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Order ID"
+            android:drawableStart="@drawable/baseline_alternate_email_24"
+            android:drawablePadding="20dp"
+            android:inputType="text"
+            android:paddingStart="10dp"
+            android:paddingEnd="15dp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Deuxième TextInput : Customer ID -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/customerIdTextInputLayout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="32dp"
+        app:endIconMode="password_toggle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/orderIdTextInputLayout">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editTextCustomerId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Customer ID"
+            android:drawableStart="@drawable/person"
+            android:drawablePadding="20dp"
+            android:inputType="text"
+            android:paddingStart="10dp"
+            android:paddingEnd="15dp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Troisième TextInput : Address -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/addressTextInputLayout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/customerIdTextInputLayout">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editTextAddress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Address"
+            android:drawableStart="@drawable/location"
+            android:drawablePadding="20dp"
+            android:inputType="text"
+            android:paddingStart="10dp"
+            android:paddingEnd="15dp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Quatrième TextInput : Status -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/statusTextInputLayout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addressTextInputLayout">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editTextStatus"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Status"
+            android:drawableStart="@drawable/baseline_flag_24"
+            android:drawablePadding="20dp"
+            android:inputType="text"
+            android:paddingStart="10dp"
+            android:paddingEnd="15dp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <!-- Bouton pour enregistrer la livraison -->
+    <Button
+        android:id="@+id/buttonAddDelivery"
+        android:layout_width="0dp"
+        android:layout_height="61dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="36dp"
+        android:layout_marginEnd="32dp"
+        android:backgroundTint="#1565c0"
+        android:text="Add Delivery"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/statusTextInputLayout" />
+
+    <Button
+        android:id="@+id/buttonViewDeliveries"
+        android:layout_width="0dp"
+        android:layout_height="61dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="36dp"
+        android:layout_marginEnd="32dp"
+        android:backgroundTint="#1565c0"
+        android:text="List Deliveries"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonAddDelivery" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
