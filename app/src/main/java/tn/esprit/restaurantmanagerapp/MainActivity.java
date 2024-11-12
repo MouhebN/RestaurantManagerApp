@@ -38,6 +38,18 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        // Find the button by ID
+        Button buttonGoToAddMenu = findViewById(R.id.buttonGoToAddMenu);
+
+        // Set an onClickListener
+        buttonGoToAddMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Start AddMenuItemActivity
+                Intent intent = new Intent(MainActivity.this, AddMenuItemActivity.class);
+                startActivity(intent);
+            }
+        });
 
     }
 }
