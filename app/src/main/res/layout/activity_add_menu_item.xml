@@ -65,6 +65,16 @@
             android:text="@string/add_menu_item"
             android:layout_gravity="center" />
 
+        <EditText
+            android:id="@+id/editTextSearch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Search menu items"
+            android:inputType="text"
+            android:padding="12dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/edittext_background" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewMenuItems"
             android:layout_width="match_parent"

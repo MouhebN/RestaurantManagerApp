@@ -132,4 +132,9 @@ public class MenuItemAdapter extends RecyclerView.Adapter<MenuItemAdapter.MenuIt
 
         }
     }
+    public void updateMenuItems(List<MenuItem> filteredMenuItems) {
+        this.menuItems = filteredMenuItems;
+        notifyDataSetChanged();
+    }
+
 }
