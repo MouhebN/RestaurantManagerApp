@@ -27,14 +27,14 @@ public class MainActivity extends AppCompatActivity {
         });
 
         // Find the button by ID
-        Button buttonGoToAddMenu = findViewById(R.id.buttonGoToAddMenu);
+        Button buttonGoToOrder = findViewById(R.id.buttonGoToOrder);
 
         // Set an onClickListener
-        buttonGoToAddMenu.setOnClickListener(new View.OnClickListener() {
+        buttonGoToOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Start AddMenuItemActivity
-                Intent intent = new Intent(MainActivity.this, AddMenuItemActivity.class);
+                // Start OrderActivity
+                Intent intent = new Intent(MainActivity.this, OrderActivity.class);
                 startActivity(intent);
             }
         });
