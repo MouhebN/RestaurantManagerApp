@@ -1,7 +1,6 @@
 package tn.esprit.restaurantmanagerapp;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,7 +12,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
-
 import android.content.Intent;
 
 import tn.esprit.restaurantmanagerapp.adapter.DeliveryAdapter;
@@ -62,9 +60,13 @@ public class DeliveryActivity extends AppCompatActivity {
         // Listener pour voir la liste des livraisons
         Button buttonViewDeliveries = findViewById(R.id.buttonViewDeliveries);
         buttonViewDeliveries.setOnClickListener(v -> {
-            Intent intent = new Intent(DeliveryActivity.this, DeliveryListActivity.class);
-            startActivity(intent);
+            listDelivery();
         });
+    }
+
+    private void listDelivery() {
+        Intent intent = new Intent(DeliveryActivity.this, DeliveryListActivity.class);
+        startActivity(intent);
     }
 
     private void addDelivery() {
