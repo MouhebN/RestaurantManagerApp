@@ -1,7 +1,10 @@
 package tn.esprit.restaurantmanagerapp;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,7 +22,6 @@ import tn.esprit.restaurantmanagerapp.adapter.MenuItemAdapter;
 import tn.esprit.restaurantmanagerapp.entity.MenuItem;
 import tn.esprit.restaurantmanagerapp.repository.MenuItemRepository;
 
-
 public class AddMenuItemActivity extends AppCompatActivity {
     private Spinner spinnerCategory;
     private EditText editTextName, editTextDescription, editTextPrice, editTextCategory;
@@ -28,6 +30,7 @@ public class AddMenuItemActivity extends AppCompatActivity {
     private RecyclerView recyclerViewMenuItems;
     private MenuItemAdapter menuItemAdapter;
     private List<MenuItem> menuItems;
+    private List<MenuItem> filteredMenuItems = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,11 +45,10 @@ public class AddMenuItemActivity extends AppCompatActivity {
         spinnerCategory = findViewById(R.id.spinnerCategory);
         buttonAddMenuItem = findViewById(R.id.buttonAddMenuItem);
         recyclerViewMenuItems = findViewById(R.id.recyclerViewMenuItems);
+        EditText editTextSearch = findViewById(R.id.editTextSearch);
 
-        // Initialize the repository
         menuItemRepository = new MenuItemRepository(getApplicationContext());
 
-        // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.category_options, android.R.layout.simple_spinner_item);
 
@@ -56,6 +58,7 @@ public class AddMenuItemActivity extends AppCompatActivity {
         // Apply the adapter to the spinner
         spinnerCategory.setAdapter(adapter);
 
+        // Load menu items from the repository
         menuItemRepository.getAllMenuItems(new MenuItemRepository.MenuItemsCallback() {
             @Override
             public void onMenuItemsLoaded(List<MenuItem> loadedMenuItems) {
@@ -69,6 +72,9 @@ public class AddMenuItemActivity extends AppCompatActivity {
                 recyclerViewMenuItems.setLayoutManager(new LinearLayoutManager(AddMenuItemActivity.this));
                 menuItemAdapter = new MenuItemAdapter(menuItems, menuItemRepository, AddMenuItemActivity.this);
                 recyclerViewMenuItems.setAdapter(menuItemAdapter);
+
+                // Apply filtering initially (in case there’s already a search or category selection)
+                filterMenuItems(editTextSearch.getText().toString());
             }
         });
 
@@ -79,8 +85,53 @@ public class AddMenuItemActivity extends AppCompatActivity {
                 addMenuItem();
             }
         });
+
+        // Set up search functionality with TextWatcher
+        editTextSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                filterMenuItems(s.toString()); // Filter items as user types
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {}
+        });
+
+        // Set a listener on the category spinner to filter items when category changes
+        spinnerCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                filterMenuItems(editTextSearch.getText().toString()); // Re-filter based on search text and selected category
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                filterMenuItems(editTextSearch.getText().toString()); // Default filter when nothing is selected
+            }
+        });
     }
 
+    // Method to filter menu items based on search query and selected category
+    private void filterMenuItems(String query) {
+        String selectedCategory = spinnerCategory.getSelectedItem().toString();
+        filteredMenuItems.clear();
+
+        for (MenuItem item : menuItems) {
+            boolean matchesCategory = selectedCategory.equals("All") || item.getCategory().equals(selectedCategory);
+            boolean matchesSearch = item.getName().toLowerCase().contains(query.toLowerCase());
+
+            if (matchesCategory && matchesSearch) {
+                filteredMenuItems.add(item);
+            }
+        }
+
+        menuItemAdapter.updateMenuItems(filteredMenuItems); // Update the adapter with the filtered list
+    }
+
+    // Method to add a new menu item
     private void addMenuItem() {
         // Get input values
         String name = editTextName.getText().toString();
@@ -93,7 +144,6 @@ public class AddMenuItemActivity extends AppCompatActivity {
             return;
         }
 
-        // Parse price
         double price;
         try {
             price = Double.parseDouble(priceText);
@@ -102,23 +152,19 @@ public class AddMenuItemActivity extends AppCompatActivity {
             return;
         }
 
-        // Create new MenuItem
         MenuItem menuItem = new MenuItem(name, description, price, category);
 
-        // Insert item in the background
         menuItemRepository.insertMenuItem(menuItem);
 
-        // Update the RecyclerView
         menuItems.add(menuItem);
         menuItemAdapter.notifyItemInserted(menuItems.size() - 1);
 
         Toast.makeText(this, "Menu item added successfully", Toast.LENGTH_SHORT).show();
 
-        // Clear input fields
+        // Clear the input fields
         editTextName.setText("");
         editTextDescription.setText("");
         editTextPrice.setText("");
         spinnerCategory.setSelection(0);
     }
-
 }
