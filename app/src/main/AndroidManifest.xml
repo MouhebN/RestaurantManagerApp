@@ -17,7 +17,7 @@
             android:exported="false" />
         <activity
             android:name=".AddMenuItemActivity"
-            android:exported="false" /> <!-- Declare OrderActivity here -->
+            android:exported="false" />
         <activity
             android:name=".OrderActivity"
             android:exported="true" />
