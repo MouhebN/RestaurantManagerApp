@@ -31,8 +31,8 @@ public class MainActivity extends AppCompatActivity {
         // Set onClickListener for Go to Add Menu
         buttonGoToAddMenu.setOnClickListener(v -> {
             // Start AddMenuItemActivity
-            Intent intent = new Intent(MainActivity.this, AddMenuItemActivity.class);
-            startActivity(intent);
+            //Intent intent = new Intent(MainActivity.this, AddMenuItemActivity.class);
+            //startActivity(intent);
         });
 
         // Set onClickListener for Go to Delivery
