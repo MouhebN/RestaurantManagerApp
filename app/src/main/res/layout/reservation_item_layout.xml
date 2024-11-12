@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="16dp"
+    android:background="@drawable/item_background"
+    android:layout_marginBottom="8dp"
+    android:elevation="4dp">
+
+    <!-- Customer ID -->
+    <TextView
+        android:id="@+id/textViewCustomerId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:textColor="@android:color/black"
+        android:textStyle="bold"
+        />
+
+    <!-- Reservation Date -->
+    <TextView
+        android:id="@+id/textViewReservationDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:textColor="@android:color/darker_gray"
+        android:layout_below="@id/textViewCustomerId"
+        android:layout_marginTop="4dp"
+        />
+
+    <!-- Reservation Time -->
+    <TextView
+        android:id="@+id/textViewReservationTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:textColor="@android:color/darker_gray"
+        android:layout_below="@id/textViewReservationDate"
+        android:layout_marginTop="4dp"
+        />
+
+    <!-- Party Size -->
+    <TextView
+        android:id="@+id/textViewPartySize"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:textColor="@android:color/holo_blue_dark"
+        android:layout_below="@id/textViewReservationTime"
+        android:layout_marginTop="4dp"
+        />
+
+    <!-- Delete Icon Button -->
+
+    <!-- Update Icon Button -->
+
+    <ImageButton
+        android:id="@+id/buttonDeleteReservation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="17dp"
+        android:background="?attr/selectableItemBackground"
+        android:contentDescription="@string/delete_reservation"
+        android:src="@drawable/ic_delete" />
+
+    <ImageButton
+        android:id="@+id/buttonUpdateReservation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="33dp"
+        android:layout_toStartOf="@id/buttonDeleteReservation"
+        android:background="?attr/selectableItemBackground"
+        android:contentDescription="@string/update_reservation"
+        android:src="@drawable/ic_update" />
+</RelativeLayout>
