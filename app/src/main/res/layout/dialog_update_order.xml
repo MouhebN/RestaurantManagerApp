@@ -1,0 +1,26 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <EditText
+        android:id="@+id/editTextOrderType"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Order Type" />
+
+    <EditText
+        android:id="@+id/editTextOrderStatus"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Order Status" />
+
+    <EditText
+        android:id="@+id/editTextTotalPrice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Total Price"
+        android:inputType="numberDecimal" />
+
+</LinearLayout>
