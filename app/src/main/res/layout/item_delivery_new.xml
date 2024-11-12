@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="5dp">
+
+        <!-- Image de la livraison -->
+        <ImageView
+            android:id="@+id/ivDeliveryImage"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:scaleType="fitCenter"
+            app:srcCompat="@drawable/baseline_delivery_dining_24" />
+
+        <!-- Contenu de la carte -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="16dp"
+            tools:ignore="ExtraText">
+
+            <!-- Nom du produit -->
+            <TextView
+                android:id="@+id/tvProductName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sandwich"
+                android:textAppearance="?attr/textAppearanceTitleMedium"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <!-- Order ID -->
+            <TextView
+                android:id="@+id/tvOrderId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Order ID: 12345"
+                android:textAppearance="?attr/textAppearanceBodySmall"
+                app:layout_constraintTop_toBottomOf="@id/tvProductName"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <!-- Customer ID -->
+            <TextView
+                android:id="@+id/tvCustomerId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Customer ID: 67890"
+                android:textAppearance="?attr/textAppearanceBodySmall"
+                app:layout_constraintTop_toBottomOf="@id/tvOrderId"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <!-- Adresse -->
+            <TextView
+                android:id="@+id/tvAddress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Address: 123 Main St, City"
+                android:textAppearance="?attr/textAppearanceBodySmall"
+                app:layout_constraintTop_toBottomOf="@id/tvCustomerId"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <!-- Statut de la livraison -->
+            <TextView
+                android:id="@+id/tvStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Status: Delivered"
+                android:textAppearance="?attr/textAppearanceBodySmall"
+                android:textColor="#4CAF50"
+                app:layout_constraintTop_toBottomOf="@id/tvAddress"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <!-- Date de l'historique -->
+            <TextView
+                android:id="@+id/tvDateHistory"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="25/05/2000"
+                android:textAppearance="?attr/textAppearanceBodySmall"
+                android:textColor="#FF0000"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+          <!--  <Button
+                android:id="@+id/btnDeleteItem"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:backgroundTint="#F44336"
+                tools:layout_editor_absoluteX="201dp"
+                tools:layout_editor_absoluteY="6dp"
+            android:text="X"
+            app:layout_constraintEnd_toEndOf="parent" /> -->
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>

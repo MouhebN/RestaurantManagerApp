@@ -71,16 +71,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:padding="12dp"/>
 
-    <!-- RecyclerView for displaying delivery items -->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewDeliveryItems"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="16dp"
+    <Button
+        android:id="@+id/buttonViewDeliveries"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="View Deliveries"
         app:layout_constraintTop_toBottomOf="@id/buttonAddDelivery"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        tools:listitem="@layout/item_delivery" />
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
