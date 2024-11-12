@@ -66,7 +66,7 @@ public class DeliveryListActivity extends AppCompatActivity {
     private void setupSpinner() {
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_item,
-                new String[]{"Tous", "En cours", "Done", "Canceled"});
+                new String[]{"Tous", "En cours", "Distribuee", "Annulee"});
         spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         triDelivery.setAdapter(spinnerAdapter);
 

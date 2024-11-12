@@ -4,7 +4,10 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -77,7 +80,46 @@ public class DeliveryAdapter extends RecyclerView.Adapter<DeliveryAdapter.Delive
         holder.orderIdTextView.setText("Order ID: " + delivery.getOrderId());
         holder.customerIdTextView.setText("Customer ID: " + delivery.getCustomerId());
         holder.addressTextView.setText("Address: " + delivery.getAddress());
-        holder.statusTextView.setText("Status: " + delivery.getDeliveryStatus());
+
+        // Initialiser le Spinner avec les options de statut
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
+                context,
+                R.array.status_options,
+                android.R.layout.simple_spinner_item
+        );
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        holder.statusSpinner.setAdapter(adapter);
+
+        // Définir la sélection du Spinner selon le statut actuel
+        String currentStatus = delivery.getDeliveryStatus();
+        int spinnerPosition = adapter.getPosition(currentStatus);
+        holder.statusSpinner.setSelection(spinnerPosition);
+
+        // Gérer la sélection du statut dans le Spinner
+        holder.statusSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String selectedStatus = parent.getItemAtPosition(position).toString();
+
+                // Mettre à jour l'objet Delivery avec le nouveau statut
+                if (!selectedStatus.equals(delivery.getDeliveryStatus())) {
+                    delivery.setDeliveryStatus(selectedStatus);
+
+                    // Mise à jour dans la base de données
+                    if (deliveryRepository != null) {
+                        deliveryRepository.updateDelivery(delivery);
+                        Toast.makeText(context, "Statut mis à jour : " + selectedStatus, Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(context, "Erreur : repository non initialisé", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // Ne rien faire
+            }
+        });
 
         // Clic sur un élément pour afficher des détails
         holder.itemView.setOnClickListener(v ->
@@ -106,7 +148,7 @@ public class DeliveryAdapter extends RecyclerView.Adapter<DeliveryAdapter.Delive
         TextView orderIdTextView;
         TextView customerIdTextView;
         TextView addressTextView;
-        TextView statusTextView;
+        Spinner statusSpinner;
 
         public DeliveryViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -114,7 +156,7 @@ public class DeliveryAdapter extends RecyclerView.Adapter<DeliveryAdapter.Delive
             orderIdTextView = itemView.findViewById(R.id.tvOrderId);
             customerIdTextView = itemView.findViewById(R.id.tvCustomerId);
             addressTextView = itemView.findViewById(R.id.tvAddress);
-            statusTextView = itemView.findViewById(R.id.tvStatus);
+            statusSpinner = itemView.findViewById(R.id.spinnerStatus);
         }
     }
 }

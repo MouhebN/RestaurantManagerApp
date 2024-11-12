@@ -1,0 +1,7 @@
+<resources>
+    <string-array name="status_options">
+        <item>En cours</item>
+        <item>Distribuée</item>
+        <item>Annulée</item>
+    </string-array>
+</resources>
