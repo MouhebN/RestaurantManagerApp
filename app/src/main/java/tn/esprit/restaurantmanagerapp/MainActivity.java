@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -15,48 +14,32 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
 
-        // Setup for window insets
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+        // Setup for window insets to handle system bars padding
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (view, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
+            view.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            return WindowInsetsCompat.CONSUMED;
         });
 
-        // Find the button by ID
-        Button buttonGoToOrder = findViewById(R.id.buttonGoToOrder);
+        // Initialize buttons and set onClick listeners
+        initializeButton(R.id.buttonGoToOrder, OrderActivity.class);
+        initializeButton(R.id.buttonGoToAddMenu, AddMenuItemActivity.class);
+        initializeButton(R.id.buttonGoToAddReservation, AddReservationActivity.class);
+    }
 
-        // Set an onClickListener
-        buttonGoToOrder.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Start OrderActivity
-                Intent intent = new Intent(MainActivity.this, OrderActivity.class);
-                startActivity(intent);
-            }
-        });
-        // Find the button by ID
-        Button buttonGoToAddMenu = findViewById(R.id.buttonGoToAddMenu);
-
-        // Set an onClickListener
-        buttonGoToAddMenu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Start AddMenuItemActivity
-                Intent intent = new Intent(MainActivity.this, AddMenuItemActivity.class);
-                startActivity(intent);
-            }
-        });
-        Button buttonGoToAddReservation = findViewById(R.id.buttonGoToAddReservation);
-        buttonGoToAddReservation.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Start AddReservationActivity
-                Intent intent = new Intent(MainActivity.this, AddReservationActivity.class);
-                startActivity(intent);
-            }
+    /**
+     * Initializes a button with a click listener to start a specified activity.
+     *
+     * @param buttonId the ID of the button to initialize
+     * @param activityClass the class of the activity to start on button click
+     */
+    private void initializeButton(int buttonId, Class<?> activityClass) {
+        Button button = findViewById(buttonId);
+        button.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, activityClass);
+            startActivity(intent);
         });
     }
 }
