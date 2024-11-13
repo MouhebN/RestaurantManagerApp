@@ -17,11 +17,11 @@ public class MenuItemRepository {
     public MenuItemRepository(Context context) {
         AppDatabase db = AppDatabase.getAppDatabase(context);
         menuDao = db.menuDao();
-        executorService = Executors.newSingleThreadExecutor(); // Creates a single background thread
+        executorService = Executors.newSingleThreadExecutor();
     }
 
     public void insertMenuItem(MenuItem menuItem) {
-        executorService.execute(() -> menuDao.insertMenuItem(menuItem)); // Executes the insertion in the background
+        executorService.execute(() -> menuDao.insertMenuItem(menuItem));
     }
 
     public void updateMenuItem(MenuItem menuItem) {
