@@ -97,6 +97,10 @@ public class OrderActivity extends AppCompatActivity {
         orderAdapter.notifyItemInserted(orderList.size() - 1);
         clearFields();
     }
+    public List<Order> getOrderList() {
+        return orderList;
+    }
+
 
     private void updateOrder() {
         String orderType = editTextOrderType.getText().toString();
