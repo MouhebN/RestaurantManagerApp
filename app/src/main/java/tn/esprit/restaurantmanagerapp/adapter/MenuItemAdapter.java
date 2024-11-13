@@ -21,8 +21,8 @@ import tn.esprit.restaurantmanagerapp.repository.MenuItemRepository;
 public class MenuItemAdapter extends RecyclerView.Adapter<MenuItemAdapter.MenuItemViewHolder> {
 
     private List<MenuItem> menuItems;
-    private MenuItemRepository menuItemRepository;
-    private Context context;
+    private final MenuItemRepository menuItemRepository;
+    private final Context context;
 
     public MenuItemAdapter(List<MenuItem> menuItems, MenuItemRepository menuItemRepository, Context context) {
         this.menuItems = menuItems;
@@ -47,22 +47,19 @@ public class MenuItemAdapter extends RecyclerView.Adapter<MenuItemAdapter.MenuIt
 
         // Delete button functionality
         holder.buttonDelete.setOnClickListener(v -> {
-            if (position >= 0 && position < menuItems.size()) { // Check if the position is valid
-                menuItemRepository.deleteMenuItem(menuItem); // First delete from the repository
-                menuItems.remove(position); // Then remove from the list
-                notifyItemRemoved(position); // Notify that an item was removed
-                notifyItemRangeChanged(position, menuItems.size()); // Notify about the change in the range
+            if (position >= 0 && position < menuItems.size()) {
+                menuItemRepository.deleteMenuItem(menuItem); // Delete from repository
+                menuItems.remove(position); // Remove from list
+                notifyItemRemoved(position); // Notify adapter about removal
+                notifyItemRangeChanged(position, menuItems.size()); // Update item range
             } else {
-                Log.e("MenuItemAdapter", "Invalid position: " + position);
+                Log.e("MenuItemAdapter", "Attempted to delete invalid position: " + position);
             }
         });
 
         // Update button functionality
-        holder.buttonUpdate.setOnClickListener(v -> {
-            showUpdateDialog(menuItem, position);
-        });
+        holder.buttonUpdate.setOnClickListener(v -> showUpdateDialog(menuItem, position));
     }
-
 
     @Override
     public int getItemCount() {
@@ -84,7 +81,7 @@ public class MenuItemAdapter extends RecyclerView.Adapter<MenuItemAdapter.MenuIt
         editTextDescription.setText(menuItem.getDescription());
         editTextPrice.setText(String.valueOf(menuItem.getPrice()));
 
-        // Set up the spinner
+        // Set up the spinner with categories
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(context,
                 R.array.category_options, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -92,24 +89,28 @@ public class MenuItemAdapter extends RecyclerView.Adapter<MenuItemAdapter.MenuIt
         int spinnerPosition = adapter.getPosition(menuItem.getCategory());
         spinnerCategory.setSelection(spinnerPosition);
 
-        // Set up the dialog
+        // Set up the dialog with update logic
         builder.setView(dialogView)
                 .setTitle("Update Menu Item")
                 .setPositiveButton("Update", (dialog, which) -> {
-                    // Get updated values
-                    String updatedName = editTextName.getText().toString();
-                    String updatedDescription = editTextDescription.getText().toString();
-                    double updatedPrice = Double.parseDouble(editTextPrice.getText().toString());
-                    String updatedCategory = spinnerCategory.getSelectedItem().toString();
+                    try {
+                        // Get updated values
+                        String updatedName = editTextName.getText().toString();
+                        String updatedDescription = editTextDescription.getText().toString();
+                        double updatedPrice = Double.parseDouble(editTextPrice.getText().toString());
+                        String updatedCategory = spinnerCategory.getSelectedItem().toString();
 
-                    // Update the menu item in the repository and adapter
-                    menuItem.setName(updatedName);
-                    menuItem.setDescription(updatedDescription);
-                    menuItem.setPrice(updatedPrice);
-                    menuItem.setCategory(updatedCategory);
+                        // Update the menu item in the repository and adapter
+                        menuItem.setName(updatedName);
+                        menuItem.setDescription(updatedDescription);
+                        menuItem.setPrice(updatedPrice);
+                        menuItem.setCategory(updatedCategory);
 
-                    menuItemRepository.updateMenuItem(menuItem);
-                    notifyItemChanged(position);
+                        menuItemRepository.updateMenuItem(menuItem);
+                        notifyItemChanged(position);
+                    } catch (NumberFormatException e) {
+                        Log.e("MenuItemAdapter", "Invalid price format", e);
+                    }
                 })
                 .setNegativeButton("Cancel", null)
                 .create()
@@ -129,12 +130,11 @@ public class MenuItemAdapter extends RecyclerView.Adapter<MenuItemAdapter.MenuIt
             textViewCategory = itemView.findViewById(R.id.textViewCategory);
             buttonDelete = itemView.findViewById(R.id.buttonDelete);
             buttonUpdate = itemView.findViewById(R.id.buttonUpdate);
-
         }
     }
+
     public void updateMenuItems(List<MenuItem> filteredMenuItems) {
         this.menuItems = filteredMenuItems;
         notifyDataSetChanged();
     }
-
 }
